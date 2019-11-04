@@ -1,0 +1,29 @@
+/*CSS selectors the ones before { bracket*/
+#to-do-items {
+    font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+    border-collapse: collapse;
+    width: 100%;
+}
+
+/* with td we go in any cell from the tab notated with #name */
+#to-do-items td, #to-do-items th {
+    border: 1px solid #ddd;
+    padding: 8px;
+}
+
+/* starting with element with #name we search any tr(table row) that has an even number
+the rest will remain white
+nth-child(even) or nth-child(3) or nth-child(odd)*/
+#to-do-items tr:nth-child(even){background-color: #f2f2f2;}
+
+/* with td we go in any cell from the tab notated with #name */
+#to-do-items tr:hover {background-color: #ddd;}
+
+/* each cell (th) from #name will get below formatting*/
+#to-do-items th {
+    padding-top: 12px;
+    padding-bottom: 12px;
+    text-align: left;
+    background-color: #4CAF50;
+    color: white;
+}

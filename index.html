@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>To Do List</title>
+<!--    We introduce the link for the CSS file-->
+    <link  rel="stylesheet" type="text/css" href="css/style.css">
+<!--    CTRL+SHIFT+R in chrome will refresh also the page cash, to be used when you work in frontend-->
+
+</head>
+<body>
+<div id="content">
+    <table id="to-do-items">
+        <!-- Table Head -->
+        <thead>
+        <tr>
+            <!-- Table Content -->
+            <th>Description</th>
+            <th>Deadline</th>
+            <th>Done</th>
+            <th>Actions</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <!-- Table Data: td, each td is a cell -->
+            <td>Learn HTML</td>
+            <td>04.11.2019</td>
+            <td><input type="checkbox" class="mark-done"/></td>
+            <!-- # means Current Page -->
+            <td><a href="#" class="delete_item">X</a></td>
+        </tr>
+        <tr>
+            <!-- Table Data: td -->
+            <td>Learn CSS</td>
+            <td>04.11.2019</td>
+            <td><input type="checkbox" class="mark-done"/></td>
+            <!-- # means Current Page -->
+            <td><a href="#" class="delete_item">X</a></td>
+        </tr>
+        <tr>
+            <!-- Table Data: td -->
+            <td>Learn JavaScript</td>
+            <td>04.11.2019</td>
+            <td><input type="checkbox" class="mark-done"/></td>
+            <!-- # means Current Page -->
+            <td><a href="#" class="delete_item">X</a></td>
+
+        </tr>
+        </tbody>
+    </table>
+</div>
+</body>
+</html>
