@@ -11,6 +11,28 @@
 
 <body>
 <div id="content">
+
+    <h1>To Do List</h1>
+
+    <h3>Add new item</h3>
+
+    <form id="create-item-form">
+<!--        We need two fields 1. input type-->
+        <label for="description-field">Description: </label>
+        <input type="text" id="description-field" placeholder="type here...">
+
+<!--        We need a field from which we select the date-->
+<!--        We select only date as we have only date in java and not datetime-->
+        <label for="deadline-field">Deadline: </label>
+        <input type="date" id="deadline-field"/>
+
+<!--        We insert the submit button-->
+        <input id="submit-form" type="submit"/>
+
+    </form>
+
+    <h3></h3>
+
     <table id="to-do-items">
         <!-- Table Head -->
         <thead>
