@@ -24,6 +24,28 @@ window.ToDoList = {
         });
     },
 
+    createItem: function(){
+        let descriptionValue = $("#description-field").val();
+        let deadlineValue = $("#deadline-field").val();
+
+        //below is a JSON object
+        var requestBody = {
+            description:descriptionValue,
+            deadline:deadlineValue
+        };
+        $.ajax({
+            url:ToDoList.API_URL,
+            method:"POST",
+        //    announcing the content type which is JSON for CORS/ MIME type usually for images
+            contentType:"application/json",
+            //GET and DELETE does not have RequestBody
+            data: JSON.stringify(requestBody)
+        }).done(function () {
+            ToDoList.getItems();
+        })
+    },
+    //we need to connect POST function to the click event
+
     //we generate HTML Code to generate a table for the item list
     displayItems: function (items) {
         var tableContent = '';
@@ -48,8 +70,16 @@ window.ToDoList = {
             <td><input type="checkbox" class="mark-done" data-id="${item.id}" ${checkedAttribute}/></td>
             <td><a href="#" class="delete_item" data-id="${item.id}><i class="far fa-trash-alt"></i>
             </a></td>
-        </tr>`
+        </tr>,`
+    },
+    
+    bindEvent: function () {
+        $("#create-item-form").submit(function (event){
+            event.preventDefault();
+            ToDoList.createItem();
+        })
     }
 };
 
 ToDoList.getItems();
+ToDoList.bindEvent();
