@@ -24,22 +24,47 @@ window.ToDoList = {
         });
     },
 
-    createItem: function(){
+    createItem: function () {
         let descriptionValue = $("#description-field").val();
         let deadlineValue = $("#deadline-field").val();
 
         //below is a JSON object
         var requestBody = {
-            description:descriptionValue,
-            deadline:deadlineValue
+            description: descriptionValue,
+            deadline: deadlineValue
         };
         $.ajax({
-            url:ToDoList.API_URL,
-            method:"POST",
-        //    announcing the content type which is JSON for CORS/ MIME type usually for images
-            contentType:"application/json",
+            url: ToDoList.API_URL,
+            method: "POST",
+            //    announcing the content type which is JSON for CORS/ MIME type usually for images
+            contentType: "application/json",
             //GET and DELETE does not have RequestBody
             data: JSON.stringify(requestBody)
+        }).done(function () {
+            ToDoList.getItems();
+        })
+    },
+
+    markItemDone: function (id, done) {
+        let requestBody = {
+            done: done
+        };
+
+        $.ajax({
+            url: ToDoList.API_URL + "?id=" + id,
+            method: "PUT",
+            //when we send something
+            contentType: 'application/json',
+            data: JSON.stringify(requestBody)
+        }).done(function () {
+            ToDoList.getItems();
+        })
+    },
+
+    deleteItem: function (id) {
+        $.ajax({
+            url: ToDoList.API_URL + "?id=" + id,
+            method: "DELETE",
         }).done(function () {
             ToDoList.getItems();
         })
@@ -67,17 +92,41 @@ window.ToDoList = {
         return `<tr>
             <td>${item.description}</td>
             <td>${deadline}</td>
-            <td><input type="checkbox" class="mark-done" data-id="${item.id}" ${checkedAttribute}/></td>
-            <td><a href="#" class="delete_item" data-id="${item.id}><i class="far fa-trash-alt"></i>
+            <td><input type="checkbox" class="mark-done" 
+            data-id="${item.id}" ${checkedAttribute}/></td>
+            <td><a href="#" class="delete-item" data-id="${item.id}">
+                <i class="far fa-trash-alt"></i>
             </a></td>
-        </tr>,`
+        </tr>`
     },
-    
+
     bindEvent: function () {
-        $("#create-item-form").submit(function (event){
+        $("#create-item-form").submit(function (event) {
             event.preventDefault();
             ToDoList.createItem();
+        });
+
+
+        //delegate is necessary because our checkbox is
+        //dynamically injected in the page (not present from the beginning, on page load)
+        $("#to-do-items").delegate(".mark-done", "change", function (event) {
+            event.preventDefault();
+
+            let id = $(this).data("id");
+            let checked = $(this).is(":checked");
+
+            //below needs id and done
+            ToDoList.markItemDone(id, checked);
         })
+
+        $("#to-do-items").delegate(".delete-item", "click", function (event) {
+            event.preventDefault();
+
+            let id = $(this).data("id");
+
+            //below needs id and done
+            ToDoList.deleteItem(id);
+        });
     }
 };
 
